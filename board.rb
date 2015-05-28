@@ -15,6 +15,7 @@ class Board
   end
 
   def set_new_board
+    # maybe move to module and mixin
     board.each_key do |key|
       case key
       when "0,0", "7,0"

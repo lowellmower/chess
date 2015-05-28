@@ -6,6 +6,7 @@ class Piece
     @color = color
   end
 
-
-
+  #def current position(index)
+  # (x-cord = index / 8, y-cord = index % 8)
+  # end
 end

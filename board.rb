@@ -34,11 +34,11 @@ class Board
     if board[user_input] = nil
       return nil
     end
-    @active_piece = identify_piece(user_input)
+    @active_piece = identify_space(user_input)
   end
 
   # return piece object
-  def identify_piece(user_input)
+  def identify_space(user_input)
     board[user_input]
   end
 
@@ -57,24 +57,33 @@ class Board
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
+  # takes a string "3,2" || "0,2" ...etc.
   def eligible_moves_bcq(user_input)
-    results = []
+    eligable_moves = []
     moves_array = possible_piece_moves(user_input)
     # 3D array
     moves_array.each do |sub_array|
       sub_array.each do |coord_array|
-        if @board[coord_array.join(",")] == nil
-          results << coord_array
-        elsif @board[coord_array.join(",")] != nil && @board[coord_array.join(",")].color != board[user_input].color
-          results << coord_array
+        if identify_space(coord_array.join(",")) == nil
+          eligable_moves << coord_array
+        elsif identify_space(coord_array.join(",")) != nil && identify_space(coord_array.join(",")).color != board[user_input].color
+          eligable_moves << coord_array
           break
-        elsif @board[coord_array.join(",")].color == board[user_input].color
+        elsif identify_space(coord_array.join(",")).color == board[user_input].color
         end
         next
       end
     end
-    results
-        binding.pry
+    eligable_moves
+  end
+
+  # eligable moves for other pieces
+  def eligable_moves_npk(user_input)
+
+  end
+
+  def humanize_moves(eligable_moves)
+
   end
 
 end
@@ -83,5 +92,5 @@ end
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 b = Board.new(board_string)
 # binding.pry
-b.board["3,6"] = Castle.new("black")
+b.board["3,6"] = Queen.new("black")
 b.eligible_moves_bcq("3,6")

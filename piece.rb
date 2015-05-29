@@ -6,8 +6,7 @@ class Piece
     @color = color
   end
 
-  # def coordinate(index)
-  #   x = index/ 8
-  #   y = index % 8
-  # end
+  def split_coordinate(xy)
+    xy.split(",").map {|num| num.to_i}
+  end
 end

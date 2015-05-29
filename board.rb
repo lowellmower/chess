@@ -50,44 +50,54 @@ class Board
   end
 
   # ask piece for where it can move from current location
-  def possible_piece_moves(user_input)
-    possible_moves = board[user_input].how_can_i_move(user_input)
-  end
+  # def possible_piece_moves(user_input)
+  #   board[user_input].how_can_i_move(user_input)
+  # end
 
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
   # takes a string "3,2" || "0,2" ...etc.
-  def eligible_moves_bcq(user_input)
-    eligable_moves = []
-    moves_array = possible_piece_moves(user_input)
-    # 3D array
-    moves_array.each do |sub_array|
-      sub_array.each do |coord_array|
-        if identify_space(coord_array.join(",")) == nil
-          eligable_moves << coord_array
-        elsif identify_space(coord_array.join(",")) != nil && identify_space(coord_array.join(",")).color != board[user_input].color
-          eligable_moves << coord_array
-          break
-        elsif identify_space(coord_array.join(",")).color == board[user_input].color
-        end
-        next
-      end
-    end
-    eligable_moves
-  end
+  # def eligible_moves_bcq(user_input)
+  #   eligible_moves = []
+  #   moves_array = possible_piece_moves(user_input)
+  #   # 3D array
+  #   moves_array.each do |sub_array|
+  #     sub_array.each do |coord_array|
+  #       if board[coord_array.join(",")] == nil
+  #         eligible_moves << coord_array
+  #       elsif board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
+  #         eligible_moves << coord_array
+  #         break
+  #       elsif board[coord_array.join(",")].color == board[user_input].color
+  #       end
+  #       next
+  #     end
+  #   end
+  #   eligible_moves
+  # end
 
-  # eligable moves for other pieces
-  def eligible_moves_npk(user_input)
-
-  end
+  # # eligible moves for other pieces
+  # def eligible_moves_npk(user_input)
+  #   eligible_moves = []
+  #   moves_array = possible_piece_moves(user_input)
+  #   moves_array.each do |coord_array|
+  #     if board[coord_array.join(",")] == nil
+  #       eligible_moves << coord_array
+  #     else board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
+  #       eligible_moves << coord_array
+  #     end
+  #   end
+  #   eligible_moves
+  # end
 
 end
 
+
 # have to give a new board string
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-b = Board.new(board_string)
+# b = Board.new(board_string)
+# b.board["4,6"] = Knight.new("black")
+
 # binding.pry
-b.board["3,6"] = Queen.new("black")
-b.eligible_moves_bcq("3,6")
-binding.pry
+# b.eligible_moves_npk("4,6")

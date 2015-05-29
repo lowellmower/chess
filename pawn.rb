@@ -2,7 +2,7 @@ require_relative 'piece'
 # require 'pry'
 
 class Pawn < Piece
-  attr_accessor :first_move, :captured
+  attr_accessor :first_move, :captured, :first_move
   attr_reader :color
   def initialize(color = "black")
     @captured = false

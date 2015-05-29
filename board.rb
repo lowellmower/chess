@@ -1,5 +1,7 @@
 require 'pry'
 # **REQUIRED FILES MUST GO ABOVE THE MODULE BELOW**
+require_relative 'dummies'
+require_relative 'bishop'
 require_relative 'piece_map'
 
 class Board
@@ -43,11 +45,36 @@ class Board
     end
   end
 
+  # ask piece for where it can move from current location
+  def possible_piece_moves(user_input)
+    possible_moves = board[user_input].how_can_i_move(user_input)
+  end
+
+  # itterate over possible moves and check board for pieces
+  # returns 2D array of possible moves
+  # Bishop Castle Queen
+  def eligible_moves_bcq(user_input)
+    results = []
+    moves_array = possible_piece_moves(user_input)
+    # 3D array
+    moves_array.each do |sub_array|
+      sub_array.each do |coord_array|
+        if @board[coord_array.join(",")] == nil || @board[coord_array.join(",")].color != board[user_input].color
+          results << coord_array
+        else @board[coord_array.join(",")].color == board[user_input].color
+        end
+        next
+      end
+    end
+    results
+        binding.pry
+  end
+
 end
 
 # have to give a new board string
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-
 b = Board.new(board_string)
-binding.pry
-b
+# binding.pry
+b.board["3,6"] = Bishop.new("black")
+b.eligible_moves_bcq("3,6")

@@ -43,7 +43,7 @@ class Board
   end
 
   # can take a board string and interpert characters on it to make a new board
-  def board_parse
+  def board_parse(board_string)
     @board.each_key.with_index do |position, i|
       @board[position] = PIECES_MAP[board_string[i]]
     end
@@ -78,11 +78,7 @@ class Board
   end
 
   # eligable moves for other pieces
-  def eligable_moves_npk(user_input)
-
-  end
-
-  def humanize_moves(eligable_moves)
+  def eligible_moves_npk(user_input)
 
   end
 
@@ -94,3 +90,4 @@ b = Board.new(board_string)
 # binding.pry
 b.board["3,6"] = Queen.new("black")
 b.eligible_moves_bcq("3,6")
+binding.pry

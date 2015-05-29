@@ -1,7 +1,9 @@
 require_relative 'piece'
 
 class Knight < Piece
-  def how_can_i_move(x,y)
+  def how_can_i_move(xy)
+   x = split_coordinate(xy)[0]
+   y = split_coordinate(xy)[1]
    possible_moves = [[x - 2, y - 1],
                      [x - 2, y + 1],
                      [x + 2, y - 1],

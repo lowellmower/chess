@@ -1,8 +1,9 @@
 require_relative 'piece'
-require 'pry'
 
 class Bishop < Piece
-  def how_can_i_move(x,y)
+  def how_can_i_move(xy)
+    x = split_coordinate(xy)[0]
+    y = split_coordinate(xy)[1]
     n = 1
     possible_array = []
     ul = []
@@ -23,24 +24,3 @@ class Bishop < Piece
   end
 end
 
-# n = 1
-# directions = [[x-n, y-n],[x-n, y+n],[x+n, y-n], [x+n, y +n]]
-#   while n < 8
-#    ul << directions[0] unless direction[0] <0 || direction[0] > 7 || direction[1] < 0 || direction[1] > 7
-#    n += 1
-#   end
-#   n = 1
-#   while n < 8
-#    ll << directions[1] unless direction[0] <0 || direction[0] > 7 || direction[1] < 0 || direction[1] > 7
-#    n += 1
-#   end
-#   n = 1
-#   while n < 8
-#    ur << directions[2] unless direction[0] <0 || direction[0] > 7 || direction[1] < 0 || direction[1] > 7
-#    n += 1
-#   end
-#   n = 1
-#   while n < 8
-#    lr << directions[3] unless direction[0] <0 || direction[0] > 7 || direction[1] < 0 || direction[1] > 7
-#    n += 1
-#   end

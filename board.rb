@@ -1,7 +1,11 @@
 require 'pry'
 # **REQUIRED FILES MUST GO ABOVE THE MODULE BELOW**
-require_relative 'dummies'
+require_relative 'castle'
+require_relative 'knight'
+require_relative 'king'
+require_relative 'pawn'
 require_relative 'bishop'
+require_relative 'queen'
 require_relative 'piece_map'
 
 class Board
@@ -59,9 +63,12 @@ class Board
     # 3D array
     moves_array.each do |sub_array|
       sub_array.each do |coord_array|
-        if @board[coord_array.join(",")] == nil || @board[coord_array.join(",")].color != board[user_input].color
+        if @board[coord_array.join(",")] == nil
           results << coord_array
-        else @board[coord_array.join(",")].color == board[user_input].color
+        elsif @board[coord_array.join(",")] != nil && @board[coord_array.join(",")].color != board[user_input].color
+          results << coord_array
+          break
+        elsif @board[coord_array.join(",")].color == board[user_input].color
         end
         next
       end
@@ -76,5 +83,5 @@ end
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 b = Board.new(board_string)
 # binding.pry
-b.board["3,6"] = Bishop.new("black")
+b.board["3,6"] = Castle.new("black")
 b.eligible_moves_bcq("3,6")

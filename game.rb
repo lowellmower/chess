@@ -43,4 +43,15 @@ class Game
     @y = HASH[position[0].upcase]
     coordinate = "#{x},#{y}"
   end
+
+  def coord_to_position(eligible_moves)
+    result = []
+    eligible_moves.flatten.map.each_slice(2){|pair| result << pair }
+    result.map do |coord|
+      x = 8 - coord[0]
+      y = HASH.key(coord[1])
+      "#{y}#{x}"
+    end
+  end
 end
+

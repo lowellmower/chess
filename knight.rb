@@ -1,22 +1,6 @@
-<<<<<<< HEAD
-require_relative 'piece'cb
-]
-class Knight < Piece
-#move list method will take an index from the board and generate an array of possible moves based on its current position.
-
-  # def how_can_i_move(x,y)
-   @possible_moves = [[x - 2, y - 1], [x - 2, y + 1], [x + 2, y - 1], [x + 2, y + 1], [x-1, y-2], [x-1, y +2], [x+1, y-2], [x+1, y +2]]
-
-  # end
-end
-
-
-=======
 require_relative 'piece'
-# require 'pry'
 
 class Knight < Piece
-#move list method will take an index from the board and generate an array of possible moves based on its current position.
   def how_can_i_move(x,y)
    possible_moves = [[x - 2, y - 1],
                      [x - 2, y + 1],
@@ -26,8 +10,7 @@ class Knight < Piece
                      [x - 1, y + 2],
                      [x + 1, y - 2],
                      [x + 1, y + 2]]
-    possible_moves
+   possible_moves.delete_if {|coord| coord[0] < 0 || coord[0] > 7 || coord[1] < 0 || coord[1] > 7}
   end
 end
 
->>>>>>> origin/GeovannaRoss/bishop

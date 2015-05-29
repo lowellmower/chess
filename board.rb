@@ -17,7 +17,7 @@ class Board
       end
     end
     @board.each_key.with_index do |position, i|
-      @board[position] = PIECES_MAP[STARTING_POSITIONS[i]]
+      @board[position] = PIECES_MAP[board_string[i]]
     end
   end
 
@@ -45,6 +45,7 @@ class Board
 
 end
 
+# have to give a new board string
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 
 b = Board.new(board_string)

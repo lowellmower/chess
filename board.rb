@@ -1,50 +1,102 @@
 require 'pry'
 
+  # STARTING_POSITIONS = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+
+
+class Castle
+  def initialize(color)
+    @color = color
+  end
+end
+
+class Knight
+  def initialize(color)
+    @color = color
+  end
+end
+
+class Bishop
+  def initialize(color)
+    @color = color
+  end
+end
+
+class Queen
+  def initialize(color)
+    @color = color
+  end
+end
+
+class King
+  def initialize(color)
+    @color = color
+  end
+end
+
+class Pawn
+  def initialize(color)
+    @color = color
+  end
+end
+
+
+module Stuff
+  STARTING_POSITIONS = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+
+  PIECES_MAP = {
+    "R" => Castle.new("black"),
+    "N" => Knight.new("black"),
+    "B" => Bishop.new("black"),
+    "Q" => Queen.new("black"),
+    "K" => King.new("black"),
+    "P" => Pawn.new("black"),
+    "p" => Pawn.new("white"),
+    "r" => Castle.new("white"),
+    "n" => Knight.new("white"),
+    "b" => Bishop.new("white"),
+    "q" => Queen.new("white")
+    " " => nil
+  }
+end
+
+
 class Board
 
-  attr_accessor :board
+  attr_accessor :board, :active_piece
 
-  def initialize
-    @board = {}
+  def initialize(board_string)
+    @active_piece = nil
+    @board = Hash.new
     ('0'..'7').each do |x|
       ('0'..'7').each do |y|
         location = "#{x},#{y}"
-        board[location] = nil
+        @board[location] = nil
       end
+    end
+    @board.each_key.with_index do |position, i|
+      @board[position] = PIECES_MAP[board_string[i]]
     end
   end
 
-  def set_new_board
-    # maybe move to module and mixin
-    board.each_key do |key|
-      case key
-      when "0,0", "7,0"
-        board[key] = Castle.new("white")#black
-      when "0,7", "7,7"
-        board[key] = Castle.new("white")#white
-      when "0,1", "0,6"
-        board[key] = Knight.new("white") #black
-      when "7,1", "7,6"
-        board[key] = Knight.new("white") #white
-      when "0,2", "0,5"
-        board[key] = Bishop.new("white")#black
-      when "7,2", "7,5"
-        board[key] = Bishop.new("white")#white
-      when "0,3"
-        board[key] = Queen.new("white")#black
-      when "7,3"
-        board[key] = Queen.new("white")#white
-      when "0,4"
-        board[key] = King.new("white")#black
-      when "7,4" #white
-        board[key] = King.new("white")#white
-      when "1,0", "1,1", "1,2", "1,3", "1,4", "1,5", "1,6", "1,7"
-        board[key] = Pawn.new("white")#black
-      when "6,0", "6,1", "6,2", "6,3", "6,4", "6,5", "6,6", "6,7"
-        board[key] = Pawn.new("white")#white
-      end
+  include Stuff
 
+  def check_for_piece(user_input)
+    # returns piece object or nil
+    if board[user_input] = nil
+      return nil
     end
+    @active_piece = identify_piece(user_input)
+  end
+
+# return piece object
+  def identify_piece(user_input)
+    board[user_input]
   end
 
 end
+
+board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+
+b = Board.new(board_string)
+binding.pry
+b

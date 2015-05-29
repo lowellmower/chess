@@ -14,7 +14,8 @@ class Game
 }
   #------------------------get started-----------------------------------
   def initialize
-    @board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+    # @board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+    @board_string = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
     @board = Board.new(@board_string)
     #run the view method to show the board
     run

@@ -7,6 +7,7 @@ module View
   def self.display(board_string)
     counter = 0
     number = 8
+    letters_array = [ " ", "A","B", "C","D", "E", "F", "G","H"]
 
 
 
@@ -16,10 +17,11 @@ module View
        counter += 9
        number -=1
      end
+    board_array << letters_array
+    board_array.flatten
+    board_array.each_slice(9){|x| puts x.join('  ')}
 
-    board_array.each_slice(9){|x| puts x.join(' ')}
-
-    puts "  A B C D E F G H"
+    #puts "   A   B  C  D  E  F  G  H"
   end
 
   def self.white_move

@@ -1,3 +1,6 @@
+require_relative "board"
+require_relative "view"
+
 class Game
   HASH = {
     "A" => 0,
@@ -11,8 +14,29 @@ class Game
 }
   #------------------------get started-----------------------------------
   def initialize
-    @board = Board.new
+    # @board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+    @board_string = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
+    @board = Board.new(@board_string)
+    #run the view method to show the board
+    run
   end
+
+
+  def run
+    #until @board.game_over
+      View.welcome_message
+      View.display(@board_string)
+      View.white_move
+      users_input = View.get_input
+      converted = convert_to_coord(users_input) #0,0
+      array_of_moves = @board.eligible_moves_bcq(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
+      array_into_position = coord_to_position(array_of_moves) #["A6", "A5", "A4", "A3", "A2", "A1"]
+      View.moves_for_white(users_input, array_into_position)
+      users_input2 = View.get_input
+
+  #end
+
+end
 
 
  #--------------------who's turn is it?----------------------------------
@@ -41,7 +65,7 @@ class Game
     position = position.split("")
     @x = 8 - position[1].to_i
     @y = HASH[position[0].upcase]
-    coordinate = "#{x},#{y}"
+    coordinate = "#{@x},#{@y}"
   end
 
   def coord_to_position(eligible_moves)
@@ -54,4 +78,7 @@ class Game
     end
   end
 end
+
+gary = Game.new
+
 

@@ -1,6 +1,6 @@
 require 'pry'
 # **REQUIRED FILES MUST GO ABOVE THE MODULE BELOW**
-require_relative 'dummies'
+#require_relative 'dummies'
 require_relative 'bishop'
 require_relative 'piece_map'
 
@@ -67,14 +67,14 @@ class Board
       end
     end
     results
-        binding.pry
+        #binding.pry
   end
 
 end
 
 # have to give a new board string
-board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-b = Board.new(board_string)
-# binding.pry
-b.board["3,6"] = Bishop.new("black")
-b.eligible_moves_bcq("3,6")
+# board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
+# b = Board.new(board_string)
+# # binding.pry
+# b.board["3,6"] = Bishop.new("black")
+# b.eligible_moves_bcq("3,6")

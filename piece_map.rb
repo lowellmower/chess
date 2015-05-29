@@ -1,3 +1,9 @@
+require_relative "castle"
+require_relative "knight"
+require_relative "bishop"
+require_relative "queen"
+require_relative "king"
+require_relative "pawn"
 module PieceInstantiator
   STARTING_POSITIONS = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 

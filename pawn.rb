@@ -3,11 +3,16 @@ require_relative 'piece'
 
 class Pawn < Piece
   attr_accessor :first_move, :captured, :first_move
-  attr_reader :color
+  attr_reader :color, :picture
   def initialize(color = "black")
     @captured = false
     @color = color
     @first_move = true
+    if self.color == "black"
+      @picture = "♙"
+    else
+      @picture = "♟"
+    end
   end
 
   def how_can_i_move(xy)
@@ -34,3 +39,4 @@ class Pawn < Piece
     end
   end
 end
+

@@ -10,9 +10,10 @@ require_relative 'piece_map'
 
 class Board
 
-  attr_accessor :board, :active_piece
+  attr_accessor :board, :active_piece, :captured_pieces
 
   def initialize
+    @captured_pieces = []
     @active_piece = nil
     @board = Hash.new
     ('0'..'7').each do |x|
@@ -68,7 +69,9 @@ class Board
     active_piece = board[first_input]
     if board[second_input] != nil
       board[second_input].captured = true
+      @captured_pieces << board[second_input]
       board[second_input] = active_piece
+      board[first_input] = nil
     else
       board[second_input] = active_piece
       board[first_input] = nil

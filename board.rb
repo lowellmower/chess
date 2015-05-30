@@ -78,10 +78,10 @@ class Board
     end
   end
 
-  def display
+  def to_s
     counter = 0
     number = 8
-    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
+    letters_array = [ "\n ", "A","B", "C","D", "E", "F", "G","H"]
     board_array = []
     self.board.each_value do |value|
       if value == nil
@@ -100,7 +100,7 @@ class Board
     board_string
   end
 
-  private
+   private
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
@@ -111,12 +111,14 @@ class Board
     # 3D array
     moves_array.each do |sub_array|
       sub_array.each do |coord_array|
+        # binding.pry
         if board[coord_array.join(",")] == nil
           eligible_moves << coord_array
         elsif board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
           eligible_moves << coord_array
           break
         elsif board[coord_array.join(",")].color == board[user_input].color
+          break
         end
         next
       end
@@ -128,6 +130,7 @@ class Board
     eligible_moves = []
     moves_array = possible_piece_moves(user_input)
     moves_array.each do |coord_array|
+      binding.pry
       if board[coord_array.join(",")] == nil
         eligible_moves << coord_array
       elsif board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
@@ -172,6 +175,5 @@ class Board
 
 end
 
-b = Board.new
-b
-binding.pry
+
+gary

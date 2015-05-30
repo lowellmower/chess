@@ -136,9 +136,20 @@ class Board
       if (board[user_input].is_a? Pawn) && (board[[x + 1, y - 1].join(",")] != nil && board[[x + 1, y - 1].join(",")].color != board[user_input].color)
         eligible_moves << [x + 1, y - 1]
       end
+    end
+    # white pawn move
+    if board[user_input].color == "white"
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y].join(",")] == nil)
+        eligible_moves << [x - 1, y]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y + 1].join(",")] != nil && board[[x - 1, y + 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x - 1, y + 1]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y - 1].join(",")] != nil && board[[x - 1, y - 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x - 1, y - 1]
+      end
       binding.pry
     end
-
   end
 
   def display
@@ -165,9 +176,9 @@ class Board
 end
 
 b = Board.new
-b.board["2,0"] = Queen.new("white")
-b.board["2,2"] = Queen.new("white")
-b.board["3,7"] = Pawn.new("black")
+b.board["5,1"] = Queen.new("black")
+# b.board["5,2"] = Queen.new("black")
+# b.board["3,7"] = Pawn.new("white")
 
 
-b.eligible_moves_p("3,7")
+b.eligible_moves_p("6,1")

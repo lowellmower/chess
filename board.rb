@@ -15,8 +15,7 @@ class Board
 
   attr_accessor :board, :active_piece
 
-  def initialize(board_string)
-    @board_string = board_string
+  def initialize
     @active_piece = nil
     @board = Hash.new
     ('0'..'7').each do |x|
@@ -26,7 +25,7 @@ class Board
       end
     end
     @board.each_key.with_index do |position, i|
-      @board[position] = PIECES_MAP[board_string[i]]
+      @board[position] = PIECES_MAP[STARTING_POSITIONS[i]]
     end
   end
 
@@ -124,4 +123,36 @@ class Board
       end
     end
   end
+
+  def display
+    counter = 0
+    number = 8
+    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
+    board_array = []
+    self.board.each_value do |value|
+      if value == nil
+        board_array << value
+      else
+        board_array << value.picture
+      end
+    end
+    while counter < 64
+       board_array.insert(counter,"\n#{number}")
+       counter += 9
+       number -=1
+     end
+    board_array << letters_array
+    board_string = board_array.flatten.join("  ")
+    board_string
+  end
+
+
+
+
+
+
+
 end
+
+gary = Board.new
+gary.display

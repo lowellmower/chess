@@ -7,9 +7,9 @@ class Bishop < Piece
     @captured = false
     @color = color
     if self.color == "black"
-      @picture = "♝"
-    else
       @picture = "♗"
+    else
+      @picture = "♝"
     end
   end
 

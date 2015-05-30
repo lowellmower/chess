@@ -64,6 +64,17 @@ class Board
     end
   end
 
+  def move(first_input,second_input)
+    active_piece = board[first_input]
+    if board[second_input] != nil
+      board[second_input].captured = true
+      board[second_input] = active_piece
+    else
+      board[second_input] = active_piece
+      board[first_input] = nil
+    end
+  end
+
   def display
     counter = 0
     number = 8
@@ -87,7 +98,6 @@ class Board
   end
 
   private
-
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
@@ -158,3 +168,7 @@ class Board
   end
 
 end
+
+b = Board.new
+b
+binding.pry

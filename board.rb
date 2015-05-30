@@ -53,6 +53,41 @@ class Board
     board[user_input].how_can_i_move(user_input)
   end
 
+  def call_for_moves(user_input)
+    case @board[user_input]
+    when Pawn
+      eligible_moves_p(user_input)
+    when Castle, Queen, Bishop
+      eligible_moves_bcq(user_input)
+    when King, Knight
+      eligible_moves_nk(user_input)
+    end
+  end
+
+  def display
+    counter = 0
+    number = 8
+    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
+    board_array = []
+    self.board.each_value do |value|
+      if value == nil
+        board_array << value
+      else
+        board_array << value.picture
+      end
+    end
+    while counter < 64
+       board_array.insert(counter,"\n#{number}")
+       counter += 9
+       number -=1
+     end
+    board_array << letters_array
+    board_string = board_array.flatten.join("  ")
+    board_string
+  end
+
+  private
+
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
@@ -105,6 +140,7 @@ class Board
       if (board[user_input].is_a? Pawn) && (board[[x + 1, y - 1].join(",")] != nil && board[[x + 1, y - 1].join(",")].color != board[user_input].color)
         eligible_moves << [x + 1, y - 1]
       end
+      eligible_moves
     end
     # white pawn move
     if board[user_input].color == "white"
@@ -117,29 +153,8 @@ class Board
       if (board[user_input].is_a? Pawn) && (board[[x - 1, y - 1].join(",")] != nil && board[[x - 1, y - 1].join(",")].color != board[user_input].color)
         eligible_moves << [x - 1, y - 1]
       end
-      binding.pry
     end
+    eligible_moves
   end
 
-  def display
-    counter = 0
-    number = 8
-    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
-    board_array = []
-    self.board.each_value do |value|
-      if value == nil
-        board_array << value
-      else
-        board_array << value.picture
-      end
-    end
-    while counter < 64
-       board_array.insert(counter,"\n#{number}")
-       counter += 9
-       number -=1
-     end
-    board_array << letters_array
-    board_string = board_array.flatten.join("  ")
-    board_string
-  end
 end

@@ -1,12 +1,9 @@
 require 'pry'
 # **REQUIRED FILES MUST GO ABOVE THE MODULE BELOW**
-
-
 require_relative 'castle'
 require_relative 'knight'
 require_relative 'king'
 require_relative 'pawn'
-
 require_relative 'bishop'
 require_relative 'queen'
 require_relative 'piece_map'
@@ -93,35 +90,55 @@ class Board
     eligible_moves
   end
 #takes string
+  # def eligible_moves_p(user_input)
+  #   x = user_input[0].to_i
+  #   y = user_input[-1].to_i
+  #   eligible_moves = []
+  #   moves_array = possible_piece_moves(user_input)
+  #   moves_array.each do |coord_array|
+  #     if board[user_input].color == "black"
+  #       if board[[x+1,y].join(",")] == nil
+  #         eligible_moves << coord_array
+  #         if board[[x+2,y].join(",")] == nil #&& board[user_input].first_move == true
+  #         eligible_moves << coord_array
+  #         end
+  #       elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
+  #         eligible_moves << coord_array
+  #       elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
+  #         eligible_moves << coord_array
+  #       end
+
+  #       # if board[[x+1,y].join(",")] != nil
+  #       # elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
+  #       #   eligible_moves << coord_array
+  #       # elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
+  #       #   eligible_moves << coord_array
+  #       # else board[coord_array.join(",")].color == board[user_input].color
+  #       # end
+  #       #   binding.pry
+  #     # end outter if here
+  #     end
+  #   end
+  # end
+
   def eligible_moves_p(user_input)
+    eligible_moves = []
     x = user_input[0].to_i
     y = user_input[-1].to_i
-    eligible_moves = []
-    moves_array = possible_piece_moves(user_input)
-    moves_array.each do |coord_array|
-      if board[user_input].color == "black"
-        if board[[x+1,y].join(",")] == nil
-          eligible_moves << coord_array
-          if board[[x+2,y].join(",")] == nil #&& board[user_input].first_move == true
-          eligible_moves << coord_array
-          end
-        elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-          eligible_moves << coord_array
-        elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-          eligible_moves << coord_array
-        end
-
-        # if board[[x+1,y].join(",")] != nil
-        # elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-        #   eligible_moves << coord_array
-        # elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-        #   eligible_moves << coord_array
-        # else board[coord_array.join(",")].color == board[user_input].color
-        # end
-        #   binding.pry
-      # end outter if here
+    # black pawn move
+    if board[user_input].color == "black"
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y].join(",")] == nil)
+        eligible_moves << [x + 1, y]
       end
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y + 1].join(",")] != nil && board[[x + 1, y + 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x + 1, y + 1]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y - 1].join(",")] != nil && board[[x + 1, y - 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x + 1, y - 1]
+      end
+      binding.pry
     end
+
   end
 
   def display
@@ -145,14 +162,12 @@ class Board
     board_string = board_array.flatten.join("  ")
     board_string
   end
-
-
-
-
-
-
-
 end
 
-gary = Board.new
-gary.display
+b = Board.new
+b.board["2,0"] = Queen.new("white")
+b.board["2,2"] = Queen.new("white")
+b.board["3,7"] = Pawn.new("black")
+
+
+b.eligible_moves_p("3,7")

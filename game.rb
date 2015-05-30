@@ -29,7 +29,7 @@ class Game
       View.white_move
       users_input = View.get_input
       converted = convert_to_coord(users_input) #0,0
-      array_of_moves = @board.eligible_moves_bcq(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
+      array_of_moves = @board.call_for_moves(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
       array_into_position = coord_to_position(array_of_moves) #["A6", "A5", "A4", "A3", "A2", "A1"]
       View.moves_for_white(users_input, array_into_position)
       users_input2 = View.get_input

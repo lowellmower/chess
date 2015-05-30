@@ -1,6 +1,18 @@
 require_relative 'piece'
 
 class Bishop < Piece
+  attr_accessor :captured, :color
+  attr_reader :color, :picture
+  def initialize(color = "black")
+    @captured = false
+    @color = color
+    if self.color == "black"
+      @picture = "♝"
+    else
+      @picture = "♗"
+    end
+  end
+
   def how_can_i_move(xy)
     x = split_coordinate(xy)[0]
     y = split_coordinate(xy)[1]
@@ -23,3 +35,5 @@ class Bishop < Piece
     possible_array
   end
 end
+
+

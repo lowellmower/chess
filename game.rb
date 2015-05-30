@@ -27,12 +27,24 @@ class Game
       View.welcome_message
       View.display(@board.display)
       View.white_move
-      users_input = View.get_input
-      converted = convert_to_coord(users_input) #0,0
+      white_users_input = View.get_input
+      converted = convert_to_coord(white_users_input) #0,0
       array_of_moves = @board.call_for_moves(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
       array_into_position = coord_to_position(array_of_moves) #["A6", "A5", "A4", "A3", "A2", "A1"]
-      View.moves_for_white(users_input, array_into_position)
-      users_input2 = View.get_input
+      View.moves_for_white(white_users_input, array_into_position)
+      View.white_ask_position(white_users_input)
+      white_users_input2 = View.get_input
+      View.white_confirm_move(white_users_input, white_users_input2)
+      View.display(@board.display)
+      View.black_move
+      black_users_input = View.get_input
+      converted = convert_to_coord(black_users_input) #0,0
+      array_of_moves = @board.call_for_moves(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
+      array_into_position = coord_to_position(array_of_moves) #["A6", "A5", "A4", "A3", "A2", "A1"]
+      View.moves_for_black(black_users_input, array_into_position)
+      View.black_ask_position(black_users_input)
+      black_users_input2 = View.get_input
+      View.black_confirm_move(black_users_input, black_users_input2)
 
   #end
 

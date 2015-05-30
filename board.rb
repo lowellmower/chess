@@ -69,6 +69,7 @@ class Board
     if board[second_input] != nil
       board[second_input].captured = true
       board[second_input] = active_piece
+      board[first_input] = nil
     else
       board[second_input] = active_piece
       board[first_input] = nil

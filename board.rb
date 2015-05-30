@@ -1,12 +1,9 @@
 require 'pry'
 # **REQUIRED FILES MUST GO ABOVE THE MODULE BELOW**
-
-
 require_relative 'castle'
 require_relative 'knight'
 require_relative 'king'
 require_relative 'pawn'
-
 require_relative 'bishop'
 require_relative 'queen'
 require_relative 'piece_map'
@@ -56,6 +53,41 @@ class Board
     board[user_input].how_can_i_move(user_input)
   end
 
+  def call_for_moves(user_input)
+    case @board[user_input]
+    when Pawn
+      eligible_moves_p(user_input)
+    when Castle, Queen, Bishop
+      eligible_moves_bcq(user_input)
+    when King, Knight
+      eligible_moves_nk(user_input)
+    end
+  end
+
+  def display
+    counter = 0
+    number = 8
+    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
+    board_array = []
+    self.board.each_value do |value|
+      if value == nil
+        board_array << value
+      else
+        board_array << value.picture
+      end
+    end
+    while counter < 64
+       board_array.insert(counter,"\n#{number}")
+       counter += 9
+       number -=1
+     end
+    board_array << letters_array
+    board_string = board_array.flatten.join("  ")
+    board_string
+  end
+
+  private
+
   # itterate over possible moves and check board for pieces
   # returns 2D array of possible moves
   # Bishop Castle Queen
@@ -92,67 +124,37 @@ class Board
     end
     eligible_moves
   end
-#takes string
+  #eligable moves for white and black pawns
   def eligible_moves_p(user_input)
+    eligible_moves = []
     x = user_input[0].to_i
     y = user_input[-1].to_i
-    eligible_moves = []
-    moves_array = possible_piece_moves(user_input)
-    moves_array.each do |coord_array|
-      if board[user_input].color == "black"
-        if board[[x+1,y].join(",")] == nil
-          eligible_moves << coord_array
-          if board[[x+2,y].join(",")] == nil #&& board[user_input].first_move == true
-          eligible_moves << coord_array
-          end
-        elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-          eligible_moves << coord_array
-        elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-          eligible_moves << coord_array
-        end
-
-        # if board[[x+1,y].join(",")] != nil
-        # elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-        #   eligible_moves << coord_array
-        # elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-        #   eligible_moves << coord_array
-        # else board[coord_array.join(",")].color == board[user_input].color
-        # end
-        #   binding.pry
-      # end outter if here
+    # black pawn move
+    if board[user_input].color == "black"
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y].join(",")] == nil)
+        eligible_moves << [x + 1, y]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y + 1].join(",")] != nil && board[[x + 1, y + 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x + 1, y + 1]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x + 1, y - 1].join(",")] != nil && board[[x + 1, y - 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x + 1, y - 1]
+      end
+      eligible_moves
+    end
+    # white pawn move
+    if board[user_input].color == "white"
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y].join(",")] == nil)
+        eligible_moves << [x - 1, y]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y + 1].join(",")] != nil && board[[x - 1, y + 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x - 1, y + 1]
+      end
+      if (board[user_input].is_a? Pawn) && (board[[x - 1, y - 1].join(",")] != nil && board[[x - 1, y - 1].join(",")].color != board[user_input].color)
+        eligible_moves << [x - 1, y - 1]
       end
     end
+    eligible_moves
   end
-
-  def display
-    counter = 0
-    number = 8
-    letters_array = [ "\n  ", "A","B", "C","D", "E", "F", "G","H","\n"]
-    board_array = []
-    self.board.each_value do |value|
-      if value == nil
-        board_array << value
-      else
-        board_array << value.picture
-      end
-    end
-    while counter < 64
-       board_array.insert(counter,"\n#{number}")
-       counter += 9
-       number -=1
-     end
-    board_array << letters_array
-    board_string = board_array.flatten.join("  ")
-    board_string
-  end
-
-
-
-
-
-
 
 end
-
-gary = Board.new
-gary.display

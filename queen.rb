@@ -31,5 +31,3 @@ class Queen < Piece
     possible_array
   end
 end
-
-p Queen.new().how_can_i_move("5,4")

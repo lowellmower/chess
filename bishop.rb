@@ -23,4 +23,3 @@ class Bishop < Piece
     possible_array
   end
 end
-

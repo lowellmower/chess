@@ -89,38 +89,7 @@ class Board
     end
     eligible_moves
   end
-#takes string
-  # def eligible_moves_p(user_input)
-  #   x = user_input[0].to_i
-  #   y = user_input[-1].to_i
-  #   eligible_moves = []
-  #   moves_array = possible_piece_moves(user_input)
-  #   moves_array.each do |coord_array|
-  #     if board[user_input].color == "black"
-  #       if board[[x+1,y].join(",")] == nil
-  #         eligible_moves << coord_array
-  #         if board[[x+2,y].join(",")] == nil #&& board[user_input].first_move == true
-  #         eligible_moves << coord_array
-  #         end
-  #       elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-  #         eligible_moves << coord_array
-  #       elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-  #         eligible_moves << coord_array
-  #       end
-
-  #       # if board[[x+1,y].join(",")] != nil
-  #       # elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
-  #       #   eligible_moves << coord_array
-  #       # elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
-  #       #   eligible_moves << coord_array
-  #       # else board[coord_array.join(",")].color == board[user_input].color
-  #       # end
-  #       #   binding.pry
-  #     # end outter if here
-  #     end
-  #   end
-  # end
-
+  #eligable moves for white and black pawns
   def eligible_moves_p(user_input)
     eligible_moves = []
     x = user_input[0].to_i
@@ -174,11 +143,3 @@ class Board
     board_string
   end
 end
-
-b = Board.new
-b.board["5,1"] = Queen.new("black")
-# b.board["5,2"] = Queen.new("black")
-# b.board["3,7"] = Pawn.new("white")
-
-
-b.eligible_moves_p("6,1")

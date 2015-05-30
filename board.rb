@@ -91,20 +91,44 @@ class Board
     end
     eligible_moves
   end
-
+#takes string
   def eligible_moves_p(user_input)
-    # check if pawn if pawn is first move == true || false
-      # return all eligable moves based on current logic
-      #
-  end
+    x = user_input[0].to_i
+    y = user_input[-1].to_i
+    eligible_moves = []
+    moves_array = possible_piece_moves(user_input)
+    moves_array.each do |coord_array|
+      if board[user_input].color == "black"
+        if board[[x+1,y].join(",")] == nil
+          eligible_moves << coord_array
+          if board[[x+2,y].join(",")] == nil #&& board[user_input].first_move == true
+          eligible_moves << coord_array
+          end
+        elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
+          eligible_moves << coord_array
+        elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
+          eligible_moves << coord_array
+        end
 
+        # if board[[x+1,y].join(",")] != nil
+        # elsif board[[x+1,y-1].join(",")] != nil && board[[x+1,y-1].join(",")].color != board[user_input].color
+        #   eligible_moves << coord_array
+        # elsif board[[x+1,y+1].join(",")] != nil && board[[x+1,y+1].join(",")].color != board[user_input].color
+        #   eligible_moves << coord_array
+        # else board[coord_array.join(",")].color == board[user_input].color
+        # end
+        #   binding.pry
+      # end outter if here
+      end
+    end
+  end
 end
 
 
 # have to give a new board string
 board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 b = Board.new(board_string)
-b.board["6,5"] = Pawn.new("white")
+b.board["5,5"] = Pawn.new()
 
 # binding.pry
-b.eligible_moves_npk("6,5")
+b.eligible_moves_p("5,5")

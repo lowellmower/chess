@@ -15,8 +15,8 @@ class Game
   #------------------------get started-----------------------------------
   def initialize
     # @board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-    @board_string = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
-    @board = Board.new(@board_string)
+    #@board_string = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
+    @board = Board.new
     #run the view method to show the board
     run
   end
@@ -25,7 +25,7 @@ class Game
   def run
     #until @board.game_over
       View.welcome_message
-      View.display(@board_string)
+      View.display(@board.display)
       View.white_move
       users_input = View.get_input
       converted = convert_to_coord(users_input) #0,0

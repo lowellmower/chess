@@ -4,25 +4,11 @@ module View
     puts "welcome to chess... blah blah blah"
   end
 
+
   def self.display(board_string)
-    counter = 0
-    number = 8
-    letters_array = [ " ", "A","B", "C","D", "E", "F", "G","H"]
-
-
-
-    board_array = board_string.split('')
-    while counter < 64
-       board_array.insert(counter,number)
-       counter += 9
-       number -=1
-     end
-    board_array << letters_array
-    board_array.flatten
-    board_array.each_slice(9){|x| puts x.join('  ')}
-
-    #puts "   A   B  C  D  E  F  G  H"
+    print board_string
   end
+
 
   def self.white_move
     puts "White's turn"

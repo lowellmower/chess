@@ -5,21 +5,21 @@ require_relative "queen"
 require_relative "king"
 require_relative "pawn"
 module PieceInstantiator
-  STARTING_POSITIONS = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
+  STARTING_POSITIONS = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
 
   PIECES_MAP = {
-    "♜" => Castle.new("black"),
-    "♞" => Knight.new("black"),
-    "♝" => Bishop.new("black"),
-    "♛" => Queen.new("black"),
-    "♚" => King.new("black"),
-    "♟" => Pawn.new("black"),
-    "♙" => Pawn.new("white"),
-    "♖" => Castle.new("white"),
-    "♘" => Knight.new("white"),
-    "♗" => Bishop.new("white"),
-    "♕" => Queen.new("white"),
-    "♔" => King.new("white"),
+    "R" => Castle.new("black"),
+    "N" => Knight.new("black"),
+    "B" => Bishop.new("black"),
+    "Q" => Queen.new("black"),
+    "K" => King.new("black"),
+    "P" => Pawn.new("black"),
+    "p" => Pawn.new("white"),
+    "r" => Castle.new("white"),
+    "n" => Knight.new("white"),
+    "b" => Bishop.new("white"),
+    "q" => Queen.new("white"),
+    "k" => King.new("white"),
     " " => nil
   }
 end

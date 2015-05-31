@@ -80,7 +80,7 @@ class Board
     board_array = []
     self.board.each_value do |value|
       if value == nil
-        board_array << value
+        board_array <<  " "
       else
         board_array << value.picture
       end

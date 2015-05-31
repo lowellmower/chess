@@ -1,3 +1,4 @@
+require 'pry'
 require_relative "board"
 require_relative "view"
 
@@ -11,55 +12,38 @@ class Game
     "F" => 5,
     "G" => 6,
     "H" => 7
-}
-  #------------------------get started-----------------------------------
+  }
+
   def initialize
-    # @board_string = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-    #@board_string = "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟                                ♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖"
     @board = Board.new
-    #run the view method to show the board
     run
   end
 
-
   def run
-    #until @board.game_over
-      View.welcome_message
+    View.welcome_message
+    until @board.captured_pieces.length == 4
       View.display(@board.display)
       View.white_move
-      users_input = View.get_input
-      converted = convert_to_coord(users_input) #0,0
-      array_of_moves = @board.call_for_moves(converted) #[[2, 0], [3, 0], [4, 0], [5, 0], [6, 0], [7, 0]]
-      array_into_position = coord_to_position(array_of_moves) #["A6", "A5", "A4", "A3", "A2", "A1"]
-      View.moves_for_white(users_input, array_into_position)
-      users_input2 = View.get_input
-
-  #end
-
-end
-
-
- #--------------------who's turn is it?----------------------------------
-  # def colors(player1 = "black", player2 = "white")
-  #   @player1 = player1
-  #   @player2 = player2
-  #   if @player == player1
-  #     "#{@player1.capitalize} Player"
-  #   else
-  #     "#{@player2.capitalize} Player"
-  # end
-
-  # def toggle_turn
-  #   if @player == @player1
-  #     @player = @player2
-  #   else
-  #     @player1
-  #   end
-  # end
-
-  # def run
-  # end
-#----------------------let's get/give some info--------------------------
+      users_input_1 = View.get_input
+      converted = convert_to_coord(users_input_1)
+      positions = coord_to_position(@board.call_for_moves(converted))
+      View.moves_for_white(users_input_1, positions)
+      converted_2 = convert_to_coord(View.get_input)
+      @board.move(converted, converted_2)
+      @board.reset_screen!
+      View.display(@board.display)
+      # black turn
+      View.black_move
+      users_input_1 = View.get_input
+      converted = convert_to_coord(users_input_1)
+      positions = coord_to_position(@board.call_for_moves(converted))
+      View.moves_for_white(users_input_1, positions)
+      converted_2 = convert_to_coord(View.get_input)
+      @board.move(converted, converted_2)
+      View.display(@board.display)
+      @board.reset_screen!
+    end
+  end
 
   def convert_to_coord(position)
     position = position.split("")

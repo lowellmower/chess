@@ -9,10 +9,14 @@ module View
     print board_string
   end
 
-
   def self.white_move
-    puts "White's turn"
-    puts "White, your move"
+    puts "\nWhite's turn"
+    puts "\nWhite, select a piece (example: A2):"
+  end
+
+  def self.black_move
+    puts "\nBlack's turn"
+    puts "\nBlack, select a piece (example: B7):"
   end
 
   def self.get_input

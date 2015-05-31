@@ -29,7 +29,6 @@ class Board
 
   include PieceInstantiator
 
-  # returns piece object or nil
   def check_for_piece(user_input)
     if board[user_input] = nil
       return nil
@@ -37,19 +36,16 @@ class Board
     @active_piece = identify_space(user_input)
   end
 
-  # return piece object
   def identify_space(user_input)
     board[user_input]
   end
 
-  # can take a board string and interpert characters on it to make a new board
   def board_parse(board_string)
     @board.each_key.with_index do |position, i|
       @board[position] = PIECES_MAP[board_string[i]]
     end
   end
 
-  # ask piece for where it can move from current location
   def possible_piece_moves(user_input)
     board[user_input].how_can_i_move(user_input)
   end
@@ -72,16 +68,15 @@ class Board
       @captured_pieces << board[second_input]
       board[second_input] = active_piece
       board[first_input] = nil
-    else
-      board[second_input] = active_piece
-      board[first_input] = nil
     end
+    board[second_input] = active_piece
+    board[first_input] = nil
   end
 
   def to_s
     counter = 0
     number = 8
-    letters_array = [ "\n ", "A","B", "C","D", "E", "F", "G","H"]
+    letters_array = [ "\n ", "A","B", "C","D", "E", "F", "G","H\n"]
     board_array = []
     self.board.each_value do |value|
       if value == nil
@@ -100,18 +95,19 @@ class Board
     board_string
   end
 
-   private
-  # itterate over possible moves and check board for pieces
-  # returns 2D array of possible moves
-  # Bishop Castle Queen
-  # takes a string "3,2" || "0,2" ...etc.
+  def reset_screen!
+    clear_screen!
+    move_to_home!
+  end
+
+  private
+
   def eligible_moves_bcq(user_input)
     eligible_moves = []
     moves_array = possible_piece_moves(user_input)
     # 3D array
     moves_array.each do |sub_array|
       sub_array.each do |coord_array|
-        # binding.pry
         if board[coord_array.join(",")] == nil
           eligible_moves << coord_array
         elsif board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
@@ -130,7 +126,6 @@ class Board
     eligible_moves = []
     moves_array = possible_piece_moves(user_input)
     moves_array.each do |coord_array|
-      binding.pry
       if board[coord_array.join(",")] == nil
         eligible_moves << coord_array
       elsif board[coord_array.join(",")] != nil && board[coord_array.join(",")].color != board[user_input].color
@@ -173,7 +168,12 @@ class Board
     eligible_moves
   end
 
+  def clear_screen!
+    print "\e[2J"
+  end
+
+  def move_to_home!
+    print "\e[H"
+  end
+
 end
-
-
-gary

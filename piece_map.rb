@@ -6,7 +6,7 @@ require_relative "king"
 require_relative "pawn"
 module PieceInstantiator
   STARTING_POSITIONS = "RNBQKBNRPPPPPPPP                                pppppppprnbqkbnr"
-
+  ROSS_POSITIONS = "RNBQKBNR                                                rnbqkbnr"
   PIECES_MAP = {
     "R" => Castle.new("black"),
     "N" => Knight.new("black"),
@@ -22,4 +22,8 @@ module PieceInstantiator
     "k" => King.new("white"),
     " " => nil
   }
+
+  # REVERSE_PIECES_MAP = {
+  #   "Castleblack" ==
+  # }
 end

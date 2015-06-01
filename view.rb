@@ -27,6 +27,14 @@ module View
     puts "moves for #{users_input}: #{x}"
   end
 
+  def self.check
+    puts "You're in check!"
+  end
+
+  def self.checkmove
+    puts "You can't move there!"
+  end
+
 end
 
 

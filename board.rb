@@ -129,6 +129,7 @@ class Board
     other_team_king = @board.select {|coordinate, value| value.class == King && value.color != color_of_team_that_just_moved}
     other_team_king_key = other_team_king.keys
     king_possible_moves = call_for_moves(other_team_king_key[0])
+    return false if king_possible_moves.empty?
     @board.each_pair do |coordinate,piece| #this will get all of the moves of the black team if a white piece just moved
       if piece != nil
         if piece.color != color_of_team_that_just_moved

@@ -21,28 +21,75 @@ class Game
 
   def run
     View.welcome_message
-    until @board.captured_pieces.length == 4
-      View.display(@board.display)
+    until @board.checkmate
+      @board.save_current_state_of_board
+      View.display(@board.to_s)
       View.white_move
       users_input_1 = View.get_input
       converted = convert_to_coord(users_input_1)
+      # p @board[converted].color
       positions = coord_to_position(@board.call_for_moves(converted))
       View.moves_for_white(users_input_1, positions)
       converted_2 = convert_to_coord(View.get_input)
+      @board.save_current_state_of_board
       @board.move(converted, converted_2)
+      break if @board.check_for_checkmate(converted_2)
+
+      until @board.did_you_move_to_check?(converted_2) == false
+        binding.pry
+
+        @board.board_parse(@board.current_state_of_board)
+        View.display(@board.to_s)
+        View.checkmove
+        View.white_move
+        users_input_1 = View.get_input
+        converted = convert_to_coord(users_input_1)
+        positions = coord_to_position(@board.call_for_moves(converted))
+        View.moves_for_white(users_input_1, positions)
+        converted_2 = convert_to_coord(View.get_input)
+        @board.move(converted, converted_2)
+      end
+
       @board.reset_screen!
-      View.display(@board.display)
-      # black turn
+      @board.save_current_state_of_board
+      View.display(@board.to_s)
+      break if @board.check_for_checkmate(converted_2)
+      #black turn
       View.black_move
       users_input_1 = View.get_input
       converted = convert_to_coord(users_input_1)
       positions = coord_to_position(@board.call_for_moves(converted))
       View.moves_for_white(users_input_1, positions)
       converted_2 = convert_to_coord(View.get_input)
+      @board.save_current_state_of_board
       @board.move(converted, converted_2)
-      View.display(@board.display)
-      @board.reset_screen!
+      break if @board.check_for_checkmate(converted_2)
+      until @board.did_you_move_to_check?(converted_2) == false
+        @board.board_parse(@board.current_state_of_board)
+        View.display(@board.to_s)
+        View.checkmove
+        View.black_move
+        users_input_1 = View.get_input
+        converted = convert_to_coord(users_input_1)
+        positions = coord_to_position(@board.call_for_moves(converted))
+        View.moves_for_white(users_input_1, positions)
+        converted_2 = convert_to_coord(View.get_input)
+        @board.move(converted, converted_2)
+      end
+
+
+      # black turn
+      # View.black_move
+      # users_input_1 = View.get_input
+      # converted = convert_to_coord(users_input_1)
+      # positions = coord_to_position(@board.call_for_moves(converted))
+      # View.moves_for_white(users_input_1, positions)
+      # converted_2 = convert_to_coord(View.get_input)
+      # @board.move(converted, converted_2)
+      # View.display(@board.display)
+      # @board.reset_screen!
     end
+    puts "Checkmate"
   end
 
   def convert_to_coord(position)
